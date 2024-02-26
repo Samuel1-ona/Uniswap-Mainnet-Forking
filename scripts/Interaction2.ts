@@ -14,18 +14,18 @@ const main = async () => {
   const impersonatedSigner = await ethers.getSigner(USDCHolder);
 
   console.log(
-    "-----------------------------------------------------------------"
+    "---------------------------Declearing The addresses--------------------------------------"
   );
 
   const amountOut = ethers.parseUnits("20000000", 6);
   const amountInMax = ethers.parseEther("1");
 
   console.log(
-    "-----------------------------------------------------------------"
+    "-----------------------------Declearing The amountout and amountInMax------------------------------------"
   );
 
   console.log(
-    "-----------------------------------------------------------------"
+    "-----------------------------get contract at for each addresses------------------------------------"
   );
 
   const USDC = await ethers.getContractAt("IERC20", USDCAddress);
@@ -35,7 +35,7 @@ const main = async () => {
   const ROUTER = await ethers.getContractAt("IUniswap", UNIRouter);
 
   console.log(
-    "-----------------------------------------------------------------"
+    "------------------------------ Approve the unirouter to use amountout-----------------------------------"
   );
 
   const approveTx = await USDC.connect(impersonatedSigner).approve(UNIRouter, amountOut);
@@ -58,7 +58,7 @@ const main = async () => {
   const daiBal = await DAI.balanceOf(impersonatedSigner.address);
 
   console.log(
-    "-----------------------------------------------------------------"
+    "-------------------GET THE BALANCE----------------------------------------------"
   );
 
 
@@ -68,12 +68,14 @@ const main = async () => {
   
 
   console.log(
-    "-----------------------------------------------------------------"
+    "------------------------DEADLINE -----------------------------------------"
   );
 
   const deadline = Math.floor(Date.now() / 1000) + 60 * 10;
 
-
+  console.log(
+    "------------------------UNISWAP ROUTER FUNCTION -----------------------------------------"
+  );
 
   const swapTx = await ROUTER.connect(impersonatedSigner).swapTokensForExactETH(
     amountOut,
